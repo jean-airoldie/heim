@@ -5,7 +5,7 @@ use std::os::windows::ffi::OsStringExt;
 use heim_common::prelude::*;
 
 use super::{pids, bindings};
-use crate::{Pid, ProcessError, ProcessResult, Status};
+use crate::{Pid, ProcessError, ProcessResult, Status, CpuTime};
 
 mod suspend;
 
@@ -106,6 +106,11 @@ impl Process {
             Ok(false) => future::ok(Status::Running),
             Err(e) => future::err(e),
         }
+    }
+
+    pub fn cpu_time(&self) -> impl Future<Output = ProcessResult<CpuTime>> {
+        // TODO: Stub
+        future::err(Error::incompatible("https://github.com/heim-rs/heim/issues/109"))
     }
 }
 
