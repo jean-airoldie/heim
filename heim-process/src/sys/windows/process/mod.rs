@@ -5,9 +5,12 @@ use std::os::windows::ffi::OsStringExt;
 use heim_common::prelude::*;
 
 use super::{pids, bindings};
-use crate::{Pid, ProcessError, ProcessResult, Status, CpuTime};
+use crate::{Pid, ProcessError, ProcessResult, Status};
 
+mod cpu_times;
 mod suspend;
+
+pub use self::cpu_times::CpuTime;
 
 #[derive(Debug)]
 pub struct Process {
@@ -110,7 +113,7 @@ impl Process {
 
     pub fn cpu_time(&self) -> impl Future<Output = ProcessResult<CpuTime>> {
         // TODO: Stub
-        future::err(Error::incompatible("https://github.com/heim-rs/heim/issues/109"))
+        future::err(Error::incompatible("https://github.com/heim-rs/heim/issues/109").into())
     }
 }
 

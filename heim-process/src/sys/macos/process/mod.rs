@@ -5,7 +5,11 @@ use std::convert::TryFrom;
 use heim_common::prelude::*;
 
 use super::{bindings, pids};
-use crate::{Pid, ProcessResult, Status, CpuTime};
+use crate::{Pid, ProcessResult, Status};
+
+mod cpu_times;
+
+pub use self::cpu_times::CpuTime;
 
 #[derive(Debug)]
 pub struct Process {
@@ -53,7 +57,7 @@ impl Process {
 
     pub fn cpu_time(&self) -> impl Future<Output = ProcessResult<CpuTime>> {
         // TODO: Stub
-        future::err(Error::incompatible("https://github.com/heim-rs/heim/issues/108"))
+        future::err(Error::incompatible("https://github.com/heim-rs/heim/issues/108").into())
     }
 }
 

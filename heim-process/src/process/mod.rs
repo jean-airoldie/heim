@@ -5,11 +5,11 @@ use heim_common::prelude::*;
 
 use crate::{sys, Pid, ProcessResult};
 
-mod status;
 mod cpu_times;
+mod status;
 
-pub use self::status::Status;
 pub use self::cpu_times::CpuTime;
+pub use self::status::Status;
 
 /// OS process.
 #[derive(heim_derive::ImplWrap)]
