@@ -67,8 +67,8 @@ jobs:
                     --service-job-number "${CI_BUILD_NUMBER}" \
                     --service-name "${CI_NAME}" \
                     --service-number "${CI_BUILD_ID}" \
-                    -o coverage.json
-                cat coverage.json | sed -e "s#\"branch\":\"master\"#\"branch\":\"${CI_BRANCH}\"#" > coveralls.json
+                    --vcs-branch "${CI_BRANCH}" \
+                    -o coveralls.json
                 curl --fail -F 'json_file=@coveralls.json' https://coveralls.io/api/v1/jobs
             displayName: Upload the results
             env:
