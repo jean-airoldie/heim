@@ -1,5 +1,6 @@
 #![feature(async_await)]
 
+use heim_common::units::information;
 use heim_memory as memory;
 
 #[heim_derive::test]
@@ -9,9 +10,9 @@ async fn smoke_memory() {
     assert!(mem.is_ok());
     let mem = mem.unwrap();
 
-    assert!(mem.total().get() > 0);
-    assert!(mem.available().get() > 0);
-    assert!(mem.free().get() > 0);
+    assert!(mem.total().get::<information::byte>() > 0);
+    assert!(mem.available().get::<information::byte>() > 0);
+    assert!(mem.free().get::<information::byte>() > 0);
 
     #[cfg(target_os = "linux")]
     {
