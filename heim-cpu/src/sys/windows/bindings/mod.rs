@@ -3,7 +3,7 @@ use std::mem;
 use winapi::um::sysinfoapi;
 use winapi::shared::{ntdef, minwindef};
 
-use crate::units;
+use heim_common::units::{Time, time};
 
 pub mod power;
 pub mod winternl;
@@ -20,26 +20,26 @@ pub unsafe fn get_system_info() -> sysinfoapi::SYSTEM_INFO {
 }
 
 pub trait IntoTime {
-    fn into_time(self) -> units::Time;
+    fn into_time(self) -> Time;
 }
 
 impl IntoTime for minwindef::FILETIME {
     #[inline]
-    fn into_time(self) -> units::Time {
+    fn into_time(self) -> Time {
         let value = (HI_T * f64::from(self.dwHighDateTime))
             + (LO_T * f64::from(self.dwLowDateTime));
 
-        units::Time::new(value)
+        Time::new::<time::second>(value)
     }
 }
 
 impl IntoTime for ntdef::LARGE_INTEGER {
     #[inline]
-    fn into_time(self) -> units::Time {
+    fn into_time(self) -> Time {
         let s = unsafe { self.s() };
         let value = (HI_T * f64::from(s.HighPart))
             + (LO_T * f64::from(s.LowPart));
 
-        units::Time::new(value)
+        Time::new::<time::second>(value)
     }
 }

@@ -83,4 +83,5 @@ pub use heim_virt as virt;
 #[doc(inline)]
 pub use heim_sensors as sensors;
 
+pub use heim_common::units;
 pub use heim_common::{Error, Result};

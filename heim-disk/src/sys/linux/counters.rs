@@ -3,7 +3,7 @@ use std::ffi::{CString, OsStr};
 
 use heim_common::prelude::*;
 use heim_common::utils::iter::*;
-use heim_common::units::{Information, Time};
+use heim_common::units::{Information, Time, time};
 use heim_runtime::fs;
 
 // Copied from the `psutil` sources:
@@ -80,7 +80,7 @@ impl FromStr for IoCounters {
             .map(|bytes: u64| Information::new(bytes * DISK_SECTOR_SIZE))?;
         let mut parts = parts.skip(2);
         let busy_time = parts.try_parse_next()
-            .map(|seconds: u64| Time::new(seconds as f64))?;
+            .map(|seconds: u64| Time::new::<time::second>(seconds as f64))?;
 
         Ok(IoCounters {
             name,

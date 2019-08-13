@@ -2,7 +2,7 @@ use std::path::{Path, PathBuf};
 use std::ffi::OsStr;
 
 use heim_common::prelude::*;
-use heim_common::units::{Time, Information};
+use heim_common::units::{Time, Information, time};
 
 use super::bindings;
 
@@ -81,8 +81,8 @@ fn inner_stream<F>(mut filter: F) -> impl Stream<Item=Result<IoCounters>>
             write_bytes: Information::new(write_bytes),
             // `ReadTime` and `WriteTime` seems to be in tenths of microseconds
             // https://github.com/giampaolo/psutil/issues/1012
-            read_time: Time::from_microseconds(read_time * 10.0),
-            write_time: Time::from_microseconds(write_time * 10.0),
+            read_time: Time::new::<time::microsecond>(read_time * 10.0),
+            write_time: Time::new::<time::microsecond>(write_time * 10.0),
         };
 
         future::ok(Some(counters))

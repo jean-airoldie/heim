@@ -1,27 +1,7 @@
-//! Basic measurement units used across `heim` sub-crates.
-//!
-/// Time measurement unit.
-///
-/// Base unit is `second`.
-#[derive(heim_derive::Unit, Copy, Clone, Debug, Default, PartialOrd, PartialEq)]
-pub struct Time(f64);
+//! Measurement units used in API.
 
-impl Time {
-    #[doc(hidden)]
-    pub fn from_nanoseconds(value: f64) -> Self {
-        Self::new(value / 1_000_000_000.0)
-    }
-
-    #[doc(hidden)]
-    pub fn from_milliseconds(value: f64) -> Self {
-        Self::new(value / 1_000.0)
-    }
-
-    #[doc(hidden)]
-    pub fn from_microseconds(value: f64) -> Self {
-        Self::new(value / 1_000_000.0)
-    }
-}
+pub use uom::si::f64::Time;
+pub use uom::si::time;
 
 /// Information measurement unit.
 ///
