@@ -1,20 +1,10 @@
 //! Measurement units used in API.
+//!
+//! Check out the [`uom`](https://docs.rs/uom/) crate docs of how to use them.
 
 pub use uom::si::f64::Time;
-pub use uom::si::time;
-
-/// Information measurement unit.
-///
-/// Base unit is `byte`.
-#[derive(heim_derive::Unit, Copy, Clone, Debug, Default, PartialOrd, Ord, PartialEq, Eq, Hash)]
-pub struct Information(u64);
-
-impl Information {
-    #[doc(hidden)]
-    pub fn from_kilobytes(value: u64) -> Self {
-        Self::new(value * 1_024)
-    }
-}
+pub use uom::si::u64::Information;
+pub use uom::si::{information, information_rate, time};
 
 /// Ratio measurement unit.
 ///
